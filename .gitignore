@@ -1,0 +1,21 @@
+# Environments
+.env
+.env.*
+!.env.example
+
+# Temporary files
+.~/
+db/
+logs/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Streamlit
+.streamlit/

@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chipai"
+version = "0.0.1"
+dependencies = [
+	"streamlit",
+	"Authlib>=1.3.2",
+	"langchain-google-genai",
+	"langchain-core",
+	"langchain-community",
+	"langchain-tavily",
+	"langgraph",
+	"langgraph-checkpoint-sqlite",
+	"typing-extensions",
+	"requests",
+	"Pillow",
+	"python-dotenv",
+	"wikipedia",
+]
+
+[project.scripts]
+chipai = "chipai.cli:main"
+
+
+
+
+
