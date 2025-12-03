@@ -32,14 +32,32 @@ if not any(isinstance(h, logging.FileHandler) for h in logger.handlers):
 
 def init_session_state():
     """Init session state variables"""
+    logger.info(f"Current working directory: {os.getcwd()}")
 
     if "model_config" not in st.session_state:
+
+        try: 
+            models_config = st.secrets.get('models')
+            agent_config = st.secrets.get('agent')
+        except FileNotFoundException as e:
+            st.error("Your .streamlit/secrets.toml file appears to be missing.")
+            st.stop()
+        except KeyError as e:
+            st.error("Your .streamlit/secrets.toml file is missing [models] and [agent] sections")
+            st.stop()
+            
+        required_models = ['GEMINI_MODEL', 'SUMMARY_MODEL', 'IMAGE_MODEL']
+        if not all(key in models_config for key in required_models):
+            st.error("Your .streamlit/secrets.toml file is missing one or more required keys under the [models] section.")
+            st.info(f"Please ensure all of the following are present: {required_models}")
+            st.stop()
+
         st.session_state.model_config = {
-            "llm": st.secrets['models']['GEMINI_MODEL'], 
-            "summary": st.secrets['models']['SUMMARY_MODEL'],
-            "image": st.secrets['models']['IMAGE_MODEL'],
+            "llm": models_config.get('GEMINI_MODEL'),
+            "summary": models_config.get('SUMMARY_MODEL'),
+            "image":  models_config.get('IMAGE_MODEL'),
             'temperature': 0.30,
-            "summarization_threshold": st.secrets.get('agent', {}).get('SUMMARIZATION_THRESHOLD', 10)
+            "summarization_threshold": agent_config.get('SUMMARIZATION_THRESHOLD', 4),
         }
         st.session_state.temperature = st.session_state.model_config['temperature']
         
@@ -54,7 +72,7 @@ def init_session_state():
 
     if "agent" not in st.session_state:
         st.session_state.agent = get_chat_agent(st.session_state.model_config)
-  
+
 def add_message(msg: MessageType) -> None:
     """add a message to list """
 
