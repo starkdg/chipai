@@ -5,6 +5,10 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.metadata]
 requires-python = ">=3.10,<3.13"
 
+[tool.poetry]
+name = "chipai"
+python = ">=3.10,<3.13"
+
 [project]
 name = "chipai"
 version = "0.0.1"
