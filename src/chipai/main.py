@@ -1,14 +1,10 @@
 import sys, base64, os, json, time, requests, logging
-from dotenv import load_dotenv
 from json import JSONDecodeError
 import datetime as dt
 from pathlib import Path
 import streamlit as st
 from agent import ChatAgent, MessageType
 from langchain_core.messages import HumanMessage
-
-# load environment variables
-load_dotenv()
 
 LOGGING_PATH = "logs"
 logger = logging.getLogger(__name__)
