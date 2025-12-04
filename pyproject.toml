@@ -3,7 +3,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.metadata]
-requires-python = "3.11"
+requires-python = ">=3.10,<3.13"
 
 [project]
 name = "chipai"
