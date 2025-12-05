@@ -5,8 +5,6 @@
 
 # Temporary files
 .~/
-db/
-logs/
 
 # Build artifacts
 build/
